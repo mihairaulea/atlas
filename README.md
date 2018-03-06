@@ -39,7 +39,7 @@ parser.getEntityStream("london.osm")
 .filter(osmEntity -> osmEntity instanceof FastNode)
 .map(osmEntity -> (FastNode)osmEntity)
 .filter(fastNode -> fastNode.getTags().contains("natural**tree"))
- .count();
+.count();
 ~~~
 
 # Importing OSM data
@@ -56,7 +56,7 @@ parser.getEntityStream("data-source.osm")
 .map(osmEntity -> (FastNode)osmEntity)
 .filter(fastNode -> fastNode.getTags().stream().allMatch(tag -> tag.startsWith("building")))
 .filter(fastNode -> fastNode.getTags().stream().noneMatch(tag -> tag.equals("building**residential")))
-.map(fastNode -> writer.addNode(fastNode))
+.map(fastNode -> writer.addNode(fastNode));
 ~~~
 
 # Neo4j CRUD operations
