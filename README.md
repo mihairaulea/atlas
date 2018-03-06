@@ -32,7 +32,7 @@ Atlas allows easy loading, transforming and filtering of OpenStreetMap data, usi
 
 Some questions you can answer pretty fast with Atlas. Do you want to know how many residential building are in an area? What's the total area of administrative buildings in London? What's the percentage occupied by townhall buildings in Europe's capitals?  
 
----java
+~~~java
 IAtlasParser parser = new OSMParser();
 // count the number of trees in London
 parser.getEntityStream("london.osm")
@@ -40,13 +40,13 @@ parser.getEntityStream("london.osm")
 .map(osmEntity -> (FastNode)osmEntity)
 .filter(fastNode -> fastNode.getTags().contains("natural**tree"))
  .count();
----
+~~~
 
 # Importing OSM data
 
 OpenStreetMap operates with 3 basic concepts. Nodes, Ways and Relations. Atlas exposes configurable methods to write such entities to Neo4j.
 
----java
+~~~java
 IAtlasParser parser = new OSMParser();
 FastWriter writer = new FastWriter();
 AtlasIndex index = new AtlasIndex();
@@ -57,11 +57,11 @@ parser.getEntityStream("data-source.osm")
 .filter(fastNode -> fastNode.getTags().stream().allMatch(tag -> tag.startsWith("building")))
 .filter(fastNode -> fastNode.getTags().stream().noneMatch(tag -> tag.equals("building**residential")))
 .map(fastNode -> writer.addNode(fastNode))
----
+~~~
 
 # Neo4j CRUD operations
 Creating an OSM node, Way or Relation becomes easy.
----java
+~~~java
 FastWriter writer = new FastWriter();
 writer.start();
 FastNode fastNode = new FastNode();
@@ -73,13 +73,13 @@ writer.addWay(way);
 Relation relation = new Relation();
 //
 writer.addRelation(relation);
----
+~~~
 
 Using Cypher, it becomes easy to read the database and have an answer to complex questions.
 
----cypher
+~~~java
 MATCH (n:ResidentialBuilding) return COUNT(n);
----
+~~~
 
 Updating the database can also be done via cypher.
 
@@ -91,7 +91,7 @@ MATCH (n:ResidentialBuilding {markForRemoval:1}) DELETE(n);
 
 *** Geohash indexing
 
----java
+~~~java
 IAtlasParser parser = new OSMParser();
 FastWriter writer = new FastWriter();
 AtlasIndex index = new AtlasIndex();
@@ -100,7 +100,7 @@ AtlasIndex index = new AtlasIndex();
 parser.getEntityStream("data-source.osm")
       .map(osmEntity -> writer.addOSMEntity(osmEntity))
       .map(node -> index.addToIndex(node));
----
+~~~
 
 (Lab features)
 
@@ -108,7 +108,7 @@ parser.getEntityStream("data-source.osm")
 
 Let's say you want to obtain a simplified graph of Europe, comprised of big towns and the highways that connect them. After a full import of Europe.osm:
 
----java
+~~~java
 RemoveCriteria removeIfNotTownOrHighwayTagsAndNotInsideTown = new RemoveCriteria();
 writer.removeNodes(removeIfNotTownOrHighwayTagsAndNotInsideTown);
 
@@ -130,7 +130,7 @@ atlasTransformer.applyContraction(db, contractIfWayPointWithNoPOINearby);
 
 RemoveCriteria removeIfWayNotConnected = new RemoveCriteria();
 writer.removeNodes(removeIfWayNotConnected);
----
+~~~
 
 *** GIS operations
 
