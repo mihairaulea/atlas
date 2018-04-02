@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.0.2">
+  <bounds minlat="56.0437000" minlon="12.9388000" maxlat="56.0761000" maxlon="13.0109000"/>
+
+ <node id="282629321" lat="56.0860425" lon="12.9729337" user="Grillo" uid="13957" visible="true" version="3" changeset="4696951" timestamp="2010-05-14T15:25:09Z"/>
+ <node id="282629521" lat="56.0771192" lon="12.9756853" user="Grillo" uid="13957" visible="true" version="2" changeset="4696951" timestamp="2010-05-14T15:25:26Z"/>
+ <node id="282629522" lat="56.0766971" lon="12.9757094" user="Grillo" uid="13957" visible="true" version="2" changeset="4696951" timestamp="2010-05-14T15:24:47Z"/>
+ <node id="282629523" lat="56.0762510" lon="12.9756612" user="Grillo" uid="13957" visible="true" version="2" changeset="4696951" timestamp="2010-05-14T15:24:31Z"/>
+ <node id="282629524" lat="56.0754792" lon="12.9755165" user="Grillo" uid="13957" visible="true" version="2" changeset="4696951" timestamp="2010-05-14T15:24:27Z"/>
+ <node id="282629525" lat="56.0750451" lon="12.9753838" user="Grillo" uid="13957" visible="true" version="2" changeset="4696951" timestamp="2010-05-14T15:25:37Z"/>
+ <node id="282629526" lat="56.0746110" lon="12.9752994" user="Grillo" uid="13957" visible="true" version="2" changeset="4696951" timestamp="2010-05-14T15:24:56Z"/>
+ <node id="282629527" lat="56.0740202" lon="12.9753838" user="janrikard" uid="45985" visible="true" version="1" changeset="4713" timestamp="2008-08-01T08:59:43Z"/>
+
+ </osm>

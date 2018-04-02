@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.0.2">
+  <bounds minlat="56.0437000" minlon="12.9388000" maxlat="56.0761000" maxlon="13.0109000"/>
+
+ <node id="282629321" lat="56.0860425" lon="12.9729337" user="Grillo" uid="13957" visible="true" version="3" changeset="4696951" timestamp="2010-05-14T15:25:09Z">
+     <tag k="building1" v="282629321"/>
+     <tag k="someKey1" v="282629321"/>
+     <tag k="otherKey1" v="282629321"/>
+     <tag k="yetAnotherKey1" v="282629321"/>
+ </node>
+
+ <node id="282629521" lat="56.0771192" lon="12.9756853" user="Grillo" uid="13957" visible="true" version="2" changeset="4696951" timestamp="2010-05-14T15:25:26Z">
+     <tag k="building2" v="282629521"/>
+     <tag k="someKey2" v="282629521"/>
+     <tag k="otherKey2" v="282629521"/>
+     <tag k="yetAnotherKey2" v="282629521"/>
+ </node>
+
+ <node id="282629522" lat="56.0766971" lon="12.9757094" user="Grillo" uid="13957" visible="true" version="2" changeset="4696951" timestamp="2010-05-14T15:24:47Z">
+     <tag k="building3" v="282629521"/>
+     <tag k="someKey3" v="282629521"/>
+     <tag k="otherKey3" v="282629521"/>
+     <tag k="yetAnotherKey3" v="282629521"/>
+ </node>
+
+ </osm>
+
