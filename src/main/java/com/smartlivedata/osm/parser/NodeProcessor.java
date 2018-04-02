@@ -57,7 +57,7 @@ public class NodeProcessor {
         }
 
         if (tagPath.equals("[osm, way, nd]")) {
-            nodeId = (Long)properties.get("ref");
+            nodeId = Long.valueOf((String)properties.get("ref"));
             way.referencedIds.add(nodeId);
         }
 
@@ -78,7 +78,7 @@ public class NodeProcessor {
 
         if (tagPath.equals("[osm, relation, member]")) {
             if (properties.containsKey("type")) {
-                Long id = (Long)properties.get("ref");
+                Long id = Long.valueOf((String)properties.get("ref"));
                 String type = (String)properties.get("type");
                 String role = (String)properties.get("role");
                 relation.referencedIds.add(id);

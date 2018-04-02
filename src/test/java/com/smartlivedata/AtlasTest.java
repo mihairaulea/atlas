@@ -36,31 +36,6 @@ public class AtlasTest {
         graphDatabaseService = new GraphDatabaseFactory().newEmbeddedDatabase(new File(dbTest));
     }
 
-    // move these out of here
-    @Test
-    public void doTwoWaysReferTheSameNode() throws Exception {
-        List<Long> allReferencedIds = osmParser.getEntityStream(osmTestUtil.fullOSMSmall).filter(t -> t instanceof Way).map(t -> (Way)t)
-                .map(way -> (way.referencedIds)).map(referencedIds -> referencedIds.iterator().next()).collect(Collectors.toList());
-
-        Set<Long> duplicates = findDuplicates(allReferencedIds);
-        assertTrue(duplicates.size()!=0);
-    }
-
-    public Set<Long> findDuplicates(List<Long> listContainingDuplicates)
-    {
-        final Set<Long> setToReturn = new HashSet();
-        final Set<Long> set1 = new HashSet();
-
-        for (Long yourInt : listContainingDuplicates)
-        {
-            if (!set1.add(yourInt))
-            {
-                setToReturn.add(yourInt);
-            }
-        }
-        return setToReturn;
-    }
-
     public void testFastNodeCountFromOsmFile(String path, int noOfFastNodesExpected, int noOfNodesInDatabaseExpected) throws XMLStreamException, IOException {
         fastWriter.start(graphDatabaseService);
         osmParser.getEntityStream(path).filter(entity -> entity instanceof FastNode).map(fastNode -> (FastNode)(fastNode)).forEach(fastNode -> fastWriter.addNode(fastNode));

@@ -24,7 +24,7 @@ public class AtlasProceduresTest {
     }
 
     @Test
-    public void exists_returns_true_when_the_provided_user_already_exists() {
+    public void testDummyProcedureDeployment() {
         Result result = db.execute( "CALL com.smartlivedata.procedures.importOSM('"+osmTestUtil.fullOSMSmall+"')" );
         assertTrue(result.hasNext() == true);
         assertTrue(result.next().get("importedSuccessfully").equals(true));
