@@ -96,6 +96,8 @@ public class FastWriter implements IAtlasWriter {
         dummyProperties.put(Constants.CURRENT_ID_STRING, id);
         return dummyProperties;
     }
+
+    // also put generic relationship, so that roads can be followed even though they are not part of the same way?
     // what if there is a node which is shared for two ways?!?
     // it is not good that i have put the node ids in a set; the first node can be the same as the last node, to close the loop and create a special type of geometry
     // the original code also adds pointers from one way to the other; i do not find this useful

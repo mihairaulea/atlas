@@ -19,7 +19,7 @@ public class AtlasTransformer {
             ResourceIterator<Node> nodeIterator =  atlasTraversals.getWayTraversalDescriptionExcludingWayStartNode(db, wayNodeStart).traverse(wayNodeStart).nodes().iterator();
             while(nodeIterator.hasNext()) {
                 Node nodeToReview = nodeIterator.next();
-                System.out.println(nodeToReview.getLabels().toString()+":"+nodeToReview.getAllProperties().toString());
+                //System.out.println(nodeToReview.getLabels().toString()+":"+nodeToReview.getAllProperties().toString());
                 if(isNodeUnmergeable(nodeToReview)) {
                     applyContraction(wayNodeStart, nodesToMerge);
                     nodesToMerge = new ArrayList<>();
@@ -28,11 +28,15 @@ public class AtlasTransformer {
                     nodesToMerge.add(nodeToReview);
                 }
             }
+            // if the traversal finishes with a node that can be merged
+            applyContraction(wayNodeStart, nodesToMerge);
         });
         return new ContractSummary();
     }
 
     private ContractSummary applyContraction(Node wayStart, List<Node> nodesToContract) {
+        int noOfDeletedNodes = 0;
+        System.out.println("APPLYING CONTRACTION ON "+nodesToContract.size());
         // just for debug!!
         if(nodesToContract.size() == 0) {
             return new ContractSummary();
@@ -48,16 +52,19 @@ public class AtlasTransformer {
             Node nodeToDelete = nodesToContract.get(i);
             nodeToDelete.getRelationships().forEach(relationship -> relationship.delete());
             nodeToDelete.delete();
+            noOfDeletedNodes++;
         }
 
         startNode.createRelationshipTo(endNode, RelationshipType.withName(Constants.NEXT_WAY_NODE)).setProperty(Constants.RELATIONSHIP_WAY_PROPERTY, uniqueWayIdentifier);
+        System.out.println("deleted "+noOfDeletedNodes+" nodes");
 
         return new ContractSummary();
     }
 
+    // supply list of relationships as parameter
     private boolean isNodeUnmergeable(Node node) {
         boolean hasUnmergeableRelationship = false;
-        Iterator<Relationship> relationshipIterator = node.getRelationships().iterator();
+        Iterator<Relationship> relationshipIterator = node.getRelationships(Direction.OUTGOING).iterator();
         while(relationshipIterator.hasNext()) {
             Relationship rel = relationshipIterator.next();
             if(!rel.getType().equals(RelationshipType.withName(Constants.NEXT_WAY_NODE))) {
@@ -65,6 +72,7 @@ public class AtlasTransformer {
                 break;
             }
         }
+        System.out.println("Node "+ node.getAllProperties().toString()+" is " +hasUnmergeableRelationship);
         return hasUnmergeableRelationship;
     }
 
