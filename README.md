@@ -2,21 +2,22 @@
 
 The world is a graph. Here's the graph technology that allows one to extract, transform and load it. Also, methods to query and analyse it. Batteries included.
 
+This software aims to make it simple to parse, import and analyze Geo data, and apply various network analytics, such as road topology and city connectivity. It uses geo hashing to index geo points.
+
+Work in progress.
+
 # Install
 
 Clone this repo, and run gradle build. 
 
 # Features
 
-* Gis data abstractions. Core methods to parse, filter, transform it and write it to the database.
+* Gis data abstractions. Core methods to parse, filter, transform and write to Neo4j database.
 * Clearly defined data for OSM entities
 * Parsing and filtering of OSM data based on Java Stream API
 * Importing OpenStreetMap data
 * CRUD Neo4j methods for Node, Way and Relation
 * Geohash indexing
-
-In the lab:
-
 * Database transformers: contract the graph, link interesting entities with easy predicates, remove unneccessary entities, summarize information
 * GIS operations
 * Network analysis tools
@@ -24,7 +25,7 @@ In the lab:
 
 # Core 
 
-Easily configure the way you want Atlas to work. What's the label on certain node type? What happens to properties of core nodes? What happens to tags? Easy methods to parse the data file, and generate a Stream out of it, in a memory and computational efficient way. Parse > Transform > Write. Query. Transform and analyse.
+Easily configure the way you want Atlas to work. What's the label on certain node type? What happens to properties of core nodes? What happens to tags? Easy methods to parse the data file, and generate a Stream out of it, in a memory and computational efficient way. Parse > Transform > Write. Query. Transform and analyse. What type of entities get indexed using the geo hash?
 
 # Parsing OSM data
 
@@ -87,9 +88,9 @@ MATCH (n:ResidentialBuilding) set(n.markForRemoval='1') return COUNT(n);
 
 Deleting is also fairly simple.
 
-MATCH (n:ResidentialBuilding {markForRemoval:1}) DELETE(n);
+MATCH (n:ResidentialBuilding {markForRemoval:1}) DETACH DELETE(n);
 
-*** Geohash indexing
+### Geohash indexing
 
 ~~~java
 IAtlasParser parser = new OSMParser();
@@ -102,9 +103,7 @@ parser.getEntityStream("data-source.osm")
       .map(node -> index.addToIndex(node));
 ~~~
 
-(Lab features)
-
-*** Database transformers
+### Database transformers
 
 Let's say you want to obtain a simplified graph of Europe, comprised of big towns and the highways that connect them. After a full import of Europe.osm:
 
@@ -132,7 +131,7 @@ RemoveCriteria removeIfWayNotConnected = new RemoveCriteria();
 writer.removeNodes(removeIfWayNotConnected);
 ~~~
 
-*** GIS operations
+### GIS operations
 
 Given a list of coordinates, one can extract points inside. Integration with Java Gis library pending. Aim to support:
 
@@ -148,12 +147,12 @@ Given a list of coordinates, one can extract points inside. Integration with Jav
 * Within
 * Within Distance
 
-*** Network analysis tools
+### Network analysis tools
 
 Once you specify a subgraph, Atlas can detect cliques, determin a graph's coloring, wether or not the subgraph is connected, inpect it's biconnectivity, the strongly connected components, the max flow from one node to another, compute it's betweeness centrality(as well as coreness, harmonic centrality and page rank), solve the travelling salesman's probleme, and much more!
 
 Stay tunned for a series of blog posts about how we used this and what insights we uncovered!
 
-*** Importing 3rd party data
+### Importing 3rd party data
 
 Various datasets have been imported over the current Atlas structure, to answer complex questions such as: Is there a mountain town, with a GDP per capita over 50k, where the weather is always between 14C and 28C?  
